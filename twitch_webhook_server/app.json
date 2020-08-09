@@ -1,0 +1,4 @@
+{
+  "name": "Twitch_webhook ",
+  "description": "This is a template for a Flask server accepting Twitch webhooks"
+}
