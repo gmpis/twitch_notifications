@@ -34,6 +34,10 @@ def accept_webhook(user_name):
         # POST, receiving event
         # print(request.content_length)
         # TODO verify payload signature using l_hub_secret and sha256
+        print(request.method)  # "GET", "POST"
+        print(request.args)  # access url params ?key=123 eg: request.args.get("key", ""))
+        print(request.headers)  # access http headers
+        print(request.form)  # access form data posted to this endpoint, eg: request.form["user"]
 
         webhook_data = request.get_data()  # returns bytestring of incoming data, alt use request.get_json()
         out_str = "{\"" + user_name + "\" : \"" + webhook_data.decode("utf-8") + "\"}"
