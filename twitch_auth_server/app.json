@@ -1,0 +1,4 @@
+{
+  "name": "Twitch_oauth",
+  "description": "This is a template for Flask server accepting Twitch OAuth flow"
+}
