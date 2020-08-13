@@ -74,7 +74,7 @@ def callback_oauth():
     l_redirect_url = os.getenv("REDIRECT_URL", "http://localhost")  # url for callback (this server), case sensitive and must match value registered on dev portal
 
     # create request from vars
-    l_dict = {"grant_type": "authorization_code", "code": l_code, "client_id": l_client_id, "client_secret": l_client_secret, "redirect_url": l_redirect_url}
+    l_dict = {"grant_type": "authorization_code", "code": l_code, "client_id": l_client_id, "client_secret": l_client_secret, "redirect_uri": l_redirect_url}
     auth_token_url = "https://id.twitch.tv/oauth2/token"
 
     # do post request to get token
