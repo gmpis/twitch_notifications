@@ -14,13 +14,13 @@ g_secret = os.getenv("HUB_SECRET", "abc")  # used from twitch to sign notificati
 base_url = "https://api.twitch.tv/helix/webhooks/hub"
 
 tmp_auth_header = "Bearer " + g_oauth_token
-m_headers = {"Client-ID": g_client_id, "Authorization": tmp_auth_header, "Content-Type": "text/plain"}
+m_headers = {"Client-ID": g_client_id, "Authorization": tmp_auth_header}  # , "Content-Type": "text/plain"} , change to json
 
 tmp_user_id = 0  # TODO set real id
 l_topic = "https://api.twitch.tv/helix/streams?user_id=%s" % tmp_user_id
 m_body = {"hub.callback": g_callback_url, "hub.mode": "subscribe", "hub.topic": l_topic,  "hub.lease_seconds": 864000, "hub.secret": g_secret}
 
-m_resp = requests.post(base_url, headers=m_headers, data=m_body)
+m_resp = requests.post(base_url, headers=m_headers, json=m_body)
 if m_resp.status_code == requests.codes.ok:  # must be 202
     print("Twitch POST was successful!")
     # body must be empty
