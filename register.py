@@ -1,7 +1,8 @@
 import requests
 import os
+import json
 # import pprint
-# import json
+
 
 # pr_pr = pprint.PrettyPrinter(indent=4)
 
@@ -36,4 +37,22 @@ def register_stream_webhook(l_channel_id, l_channel_name):
     print("Done !!!")
 
 
-register_stream_webhook("12826", "Twitch")
+if __name__ == "__main__":
+    f_name = "./users.json"
+
+    # TODO if cli param overwrite f_name
+
+    # read file
+    f = open(f_name)
+    f_contents = f.read()
+    json_users = json.loads(f_contents)
+
+    for tmp_u in json_users:
+        tmp_name = tmp_u["name"]
+        tmp_id = tmp_u["_id"]
+        # print(tmp_u)
+        # print("user: " + tmp_name + ", with id: " + tmp_id)
+        register_stream_webhook(tmp_id, tmp_name)
+
+    # registered all users close file
+    f.close()
