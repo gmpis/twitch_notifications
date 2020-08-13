@@ -44,7 +44,7 @@ def start_oauth():
     # scope param is not supported, must be declared on dev portal
 
     # create url from vars
-    l_dict = {"response_type": "code", "client_id": l_client_id, "state": l_state, "redirect_url": l_redirect_url}
+    l_dict = {"response_type": "code", "client_id": l_client_id, "state": l_state, "redirect_uri": l_redirect_url}
     l_params = urllib.parse.urlencode(l_dict)
 
     auth_base_url = "https://id.twitch.tv/oauth2/authorize?%s" % l_params
