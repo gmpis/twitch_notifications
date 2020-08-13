@@ -6,7 +6,7 @@ import json
 pr_pr = pprint.PrettyPrinter(indent=4)
 
 # config var TODO edit with the selected names
-l_csv_users_str = "user1,user2"  # sting (list) of usernames to search their IDs, separated by ","
+l_csv_users_str = "twitch,nasa"  # sting (list) of usernames to search their IDs, separated by ","
 
 base_url = "https://api.twitch.tv/kraken/users"
 g_client_id = os.getenv("OAUTH_CLIENT_ID", "000000")  # read client_id from env vars, defaults to 000000, invalid
@@ -37,4 +37,4 @@ else:
     print("Sorry something went wrong...")
     print("Status code: " + str(m_resp.status_code) + "\n" + str(m_resp.text))
 
-print("Done, exiting now ...")
+# print("Done, exiting now ...")
