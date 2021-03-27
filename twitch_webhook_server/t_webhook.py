@@ -99,7 +99,7 @@ def accept_eventsub_webhook(user_name):
             if m_notif_type == "stream.online":
                 stream_title = ""
                 event_data = webhook_data["event"]  # TODO debug, full event data
-                disc_msg = user_name + " Started stream : " + stream_title + " : " + event_data.decode("utf-8")
+                disc_msg = user_name + " Started stream : " + stream_title + " : " + str(event_data)
             elif m_notif_type == "stream.offline":
                 disc_msg = user_name + " went offline."
             elif m_notif_type == "channel.raid":
