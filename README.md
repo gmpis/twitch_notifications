@@ -1,7 +1,7 @@
 # twitch_notifications  
 
 ## Install dev dependencies   
-`pip install -r requirements.txt`   
+`pip3 install -r requirements.txt`   
    
 Note: *If you haven't already installed pip/pip3, you can do so by running: `sudo apt install python3-pip`*   
 
