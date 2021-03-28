@@ -171,3 +171,57 @@ def refresh_oauth(db_key):
 @app.route('/revoke/<string:db_key>/', methods=["GET", "POST"])
 def revoke_oauth(db_key):
     return "Under construction!"
+
+
+# OAuth client credentials flow
+@app.route('/app_token/', methods=["GET"])  #, "POST"])
+def callback_app_token():
+    """ Implements client credentials flow"""
+    # log incoming request
+    # print(request.method)  # "GET", "POST"
+    print(request.args)  # access url params ?key=123 eg: request.args.get("key", ""))
+    # print(request.form)  # access form data posted to this endpoint, eg: request.form["user"]
+
+    # read values from url params
+    # m_auth_code = request.args.get("code", "0")  # get code from request, our impelentation, not needed from twitch
+
+    # read values from env vars
+    l_client_id = os.getenv("OAUTH_CLIENT_ID", "12345")  # from dev portal
+    l_client_secret = os.getenv("OAUTH_CLIENT_SECRET", "12345")  # from dev portal
+
+    # create request from vars
+    auth_token_url = "https://id.twitch.tv/oauth2/token"
+    l_body_dict = {"client_id": l_client_id, "client_secret": l_client_secret, "grant_type": "client_credentials"}  # optional scope
+
+    # do post request to get token
+    # m_access_token = ""
+    m_resp = ex_requests.post(auth_token_url, data=l_body_dict)  # post data as x-www-form-urlencoded
+    if m_resp.status_code == ex_requests.codes.ok:
+        # we got an app access token here, save it on our db
+        # NEVER share app access token with clients, must be kept secret server side
+        print("Post was successful!")
+        full_json_body = m_resp.json()
+        print(full_json_body)
+        # print(type(full_json_body))  # class dict
+
+        # extract token from response
+        m_access_token = full_json_body["access_token"]
+
+        # extract refresh token from response
+        # m_refresh_token = full_json_body["refresh_token"]  # expect empty string
+
+        # save token to db
+        if l_use_db:
+            l_db_key = "app_access_token"
+            tmp_curr_millisec = int(time.time()) * 1000  # current time in milliseconds, (since Epoch)
+            tmp_u_json = full_json_body
+            tmp_u_json["w_rec_time"] = str(tmp_curr_millisec)  # millisec the token was generated / received
+            tmp_db_value = json.dumps(tmp_u_json)
+            # print(tmp_db_value)  # class string
+            m_db_conn.set(l_db_key, tmp_db_value)  # store user token to db
+
+        return "OK"  # NEVER return app access token, must be kept secret server side
+
+    else:
+        print("Res:"+m_resp.text)
+        return "Error couldn\'t get app access token"
