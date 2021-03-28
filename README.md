@@ -5,7 +5,7 @@
 - create a new text channel   
 - right click on the channel > Edit Channel > Integrations > Webhooks > Create Webhook   
 - set a name, and a profile picture for the Bot   
-- click Copy Webhook URL, we need the url to set the webhook server    
+- click Copy Webhook URL, (we need to set this url as env var on webhook server)    
    
 ## Setup Twitch    
 - Login to Twitch and enable 2FA (required)   
@@ -32,7 +32,14 @@ Note: *The following steps must be performed AFTER the web server has been deplo
 - run search script as: `python3 search.py | tee users.json`  
 - run register script as: `python3 register.py`  
 
-## Debug webhooks   
-   
+## Debug eventsub webhooks   
+To debug eventsub webhooks you can use:   
+- the webhook_management script: `python3 webhook_management.py`   
+- the twitch-cli:   
+  - to test registration verification: `./twitch event verify-subscription streamup --forward-address https://......./eventsub/name/`   
+  - to test notifications : `./twitch event trigger streamup --forward-address https://......./eventsub/name/`   
+  - event types to test: `streamup`, `streamdown`, `raid`   
+Note: *twitch-cli is not available on apt yet, must be cloned from the official Github repo:``*   
+    
 ## TODO   
    
