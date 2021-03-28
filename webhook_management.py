@@ -28,11 +28,11 @@ def list_eventsub_webhooks(l_eventsub_log):
     # List webhooks here
     m_resp = requests.get(base_url, headers=m_headers, params=m_params_dict)
     # if m_resp.status_code == requests.codes.ok:  # must be 202
-    if m_resp.status_code == 202:  # must be 202, DONT use: requests.codes.ok
+    if m_resp.status_code == 200:  # must be 202, DONT use: requests.codes.ok
         # here we have a json body with registered webhooks TODO handle pagination
         # read body, not empty
         registr_body = m_resp.json()
-        print(registr_body)
+        # print(registr_body)
         l_eventsub_log.append(registr_body)
     else:
         print("Twitch Error listing webhooks, Status:" + str(m_resp.status_code))
