@@ -82,6 +82,12 @@ if __name__ == "__main__":
     # list all registered webhooks
     list_eventsub_webhooks(eventsub_log)
 
+    # delete webhooks
+    tmp_delete_ids = []  # TODO fill with webhook ids you want to delete
+
+    for tmp_id in tmp_delete_ids:
+        delete_eventsub_webhook(tmp_id, eventsub_log)
+
     # if we have log, print it
     if len(eventsub_log) > 0:
         print("\n\n")  # some whitespace from prev print
