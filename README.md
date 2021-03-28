@@ -36,10 +36,11 @@ Note: *The following steps must be performed AFTER the web server has been deplo
 To debug eventsub webhooks you can use:   
 - the webhook_management script: `python3 webhook_management.py`   
 - the twitch-cli:   
-  - to test registration verification: `./twitch event verify-subscription streamup --forward-address https://......./eventsub/name/`   
-  - to test notifications : `./twitch event trigger streamup --forward-address https://......./eventsub/name/`   
-  - event types to test: `streamup`, `streamdown`, `raid`   
-Note: *twitch-cli is not available on apt yet, must be cloned from the official Github repo:``*   
+  - to test registration verification: `./twitch event verify-subscription streamup --forward-address https://......./eventsub/name/ --secret secretstrhere`   
+  - to test notifications : `./twitch event trigger streamup --forward-address https://......./eventsub/name/ --secret secretstrhere`   
+  - event types to test: `streamup`, `streamdown`, `raid`
+   
+Note: *twitch-cli is not available on apt yet, must be cloned from the official Github repo: `/twitchdev/twitch-cli`*   
     
 ## TODO   
    
