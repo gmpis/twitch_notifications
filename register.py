@@ -65,12 +65,28 @@ def register_eventsub_webhook(l_channel_id, l_channel_name):
     # Register online webhook here
     m_cond_d = {"broadcaster_user_id": l_channel_id}
     m_body = {"type": "stream.online", "version": "1", "condition": m_cond_d,  "transport": m_transport_dict}
-    # TODO do request here
+
+    m_resp = requests.post(base_url, headers=m_headers, json=m_body)
+    # if m_resp.status_code == requests.codes.ok:  # must be 202
+    if m_resp.status_code == 202:  # must be 202, DONT use: requests.codes.ok
+        print("Registered: " + l_channel_name + "stream.online  successfully !!!")
+        # TODO read body, not empty
+    else:
+        print("Twitch Error registering: " + l_channel_name + "stream.online, Status:" + str(m_resp.status_code))
+        print(m_resp.text)
 
     # Register offline webhook here
     m_cond_d = {"broadcaster_user_id": l_channel_id}
     m_body = {"type": "stream.offline", "version": "1", "condition": m_cond_d,  "transport": m_transport_dict}
-    # TODO do request here
+
+    m_resp = requests.post(base_url, headers=m_headers, json=m_body)
+    # if m_resp.status_code == requests.codes.ok:  # must be 202
+    if m_resp.status_code == 202:  # must be 202, DONT use: requests.codes.ok
+        print("Registered: " + l_channel_name + "stream.offline  successfully !!!")
+        # TODO read body, not empty
+    else:
+        print("Twitch Error registering: " + l_channel_name + "stream.offline, Status:" + str(m_resp.status_code))
+        print(m_resp.text)
 
     # Register raid webhook here
     m_cond_d = {"from_broadcaster_user_id": l_channel_id}
@@ -80,13 +96,13 @@ def register_eventsub_webhook(l_channel_id, l_channel_name):
     # if m_resp.status_code == requests.codes.ok:  # must be 202
     if m_resp.status_code == 202:  # must be 202, DONT use: requests.codes.ok
         print("Twitch POST was successful!")
-        print("Registered: " + l_channel_name + " successfully !!!")
-        # body must be empty
+        print("Registered: " + l_channel_name + "channel.raid successfully !!!")
+        # TODO read body, not empty
     else:
-        print("Twitch Error registering: " + l_channel_name + " Status:" + str(m_resp.status_code))
+        print("Twitch Error registering: " + l_channel_name + "channel.raid, Status:" + str(m_resp.status_code))
         print(m_resp.text)
 
-    print("Done !!!")
+    print("Done " + l_channel_name +" !!!")
 
 
 if __name__ == "__main__":
