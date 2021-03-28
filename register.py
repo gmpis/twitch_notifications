@@ -7,8 +7,8 @@ import json
 g_app_token = os.getenv("APP_TOKEN", "abc")  # generated using client credentials flow
 g_client_id = os.getenv("OAUTH_CLIENT_ID", "000000")  # read client_id, defaults to 000000, invalid
 g_oauth_token = os.getenv("OAUTH_TOKEN", "abc")  # oauth_token for the signed in user,
-g_callback_url = os.getenv("CALLBACK_URL", "")  # read callback_url, webhook url of our server that accepts notifications, must end /
-g_secret = os.getenv("HUB_SECRET", "abc")  # used from twitch to sign notifications
+g_callback_url = os.getenv("CALLBACK_URL", "")      # read callback_url, webhook url of our server that accepts notifications, must end in .com, .gr etc
+g_secret = os.getenv("HUB_SECRET", "abc")           # used from twitch to sign notifications, TODO must be 10+ characters
 
 # my vars
 registr_version = "EVENTSUB"  # choose registration type opt: "EVENTSUB", "WEBHOOK",
@@ -20,7 +20,8 @@ def register_stream_webhook(l_channel_id, l_channel_name):
     # g_client_id = os.getenv("OAUTH_CLIENT_ID", "000000")  # read client_id, defaults to 000000, invalid
     # g_oauth_token = os.getenv("OAUTH_TOKEN", "abc")  # oauth_token for the signed in user,
     # g_callback_url = os.getenv("CALLBACK_URL", "")  # read callback_url, webhook url of our server that accepts notifications, must end /
-    full_callback_url = g_callback_url + l_channel_name + "/"  # overwrite with full url, eg: "http://localhost/webhook/" + "nasa" + "/"
+    # g_callback_url ==  "www. ... .com"
+    full_callback_url = g_callback_url + "/webhook/" + l_channel_name + "/"  # overwrite with full url, eg: "http://localhost/webhook/" + "nasa" + "/"
     # g_secret = os.getenv("HUB_SECRET", "abc")  # used from twitch to sign notifications
 
     base_url = "https://api.twitch.tv/helix/webhooks/hub"
@@ -50,10 +51,11 @@ def register_eventsub_webhook(l_channel_id, l_channel_name):
     # g_oauth_token = os.getenv("OAUTH_TOKEN", "abc")  # oauth_token for the signed in user,
     # g_callback_url = os.getenv("CALLBACK_URL", "")  # read callback_url, webhook url of our server that accepts notifications, must end /
     # g_secret = os.getenv("HUB_SECRET", "abc")  # used from twitch to sign notifications
-    full_callback_url = g_callback_url + l_channel_name + "/"  # overwrite with full url, eg: "http://localhost/webhook/" + "nasa" + "/"
+    # g_callback_url ==  "www. ... .com"
+    full_callback_url = g_callback_url + "/eventsub/" + l_channel_name + "/"  # overwrite with full url, eg: "http://localhost/eventsub/" + "nasa" + "/"
 
     # request config
-    base_url = "https://api.twitch.tv/helix/eventsub/sbscriptions"
+    base_url = "https://api.twitch.tv/helix/eventsub/subscriptions"
     tmp_auth_header = "Bearer " + g_app_token
     m_headers = {"Client-ID": g_client_id, "Authorization": tmp_auth_header}  # , "Content-Type": "text/plain"} , change to json
 
