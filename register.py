@@ -12,7 +12,7 @@ g_secret = os.getenv("HUB_SECRET", "abc")           # used from twitch to sign n
 
 # my vars
 registr_version = "EVENTSUB"  # choose registration type opt: "EVENTSUB", "WEBHOOK",
-
+eventsub_log = []  # list that contain a log of eventsub responses
 # pr_pr = pprint.PrettyPrinter(indent=4)
 
 
@@ -46,7 +46,7 @@ def register_stream_webhook(l_channel_id, l_channel_name):
     print("Done !!!")
 
 
-def register_eventsub_webhook(l_channel_id, l_channel_name):
+def register_eventsub_webhook(l_channel_id, l_channel_name, l_eventsub_log):
     # g_client_id = os.getenv("OAUTH_CLIENT_ID", "000000")  # read client_id, defaults to 000000, invalid
     # g_oauth_token = os.getenv("OAUTH_TOKEN", "abc")  # oauth_token for the signed in user,
     # g_callback_url = os.getenv("CALLBACK_URL", "")  # read callback_url, webhook url of our server that accepts notifications, must end /
@@ -70,7 +70,10 @@ def register_eventsub_webhook(l_channel_id, l_channel_name):
     # if m_resp.status_code == requests.codes.ok:  # must be 202
     if m_resp.status_code == 202:  # must be 202, DONT use: requests.codes.ok
         print("Registered: " + l_channel_name + "stream.online  successfully !!!")
-        # TODO read body, not empty
+        # read body, not empty
+        registr_body = m_resp.json()
+        # print(registr_body)
+        l_eventsub_log.append(registr_body)
     else:
         print("Twitch Error registering: " + l_channel_name + "stream.online, Status:" + str(m_resp.status_code))
         print(m_resp.text)
@@ -83,7 +86,10 @@ def register_eventsub_webhook(l_channel_id, l_channel_name):
     # if m_resp.status_code == requests.codes.ok:  # must be 202
     if m_resp.status_code == 202:  # must be 202, DONT use: requests.codes.ok
         print("Registered: " + l_channel_name + "stream.offline  successfully !!!")
-        # TODO read body, not empty
+        # read body, not empty
+        registr_body = m_resp.json()
+        # print(registr_body)
+        l_eventsub_log.append(registr_body)
     else:
         print("Twitch Error registering: " + l_channel_name + "stream.offline, Status:" + str(m_resp.status_code))
         print(m_resp.text)
@@ -97,7 +103,10 @@ def register_eventsub_webhook(l_channel_id, l_channel_name):
     if m_resp.status_code == 202:  # must be 202, DONT use: requests.codes.ok
         print("Twitch POST was successful!")
         print("Registered: " + l_channel_name + "channel.raid successfully !!!")
-        # TODO read body, not empty
+        # read body, not empty
+        registr_body = m_resp.json()
+        # print(registr_body)
+        l_eventsub_log.append(registr_body)
     else:
         print("Twitch Error registering: " + l_channel_name + "channel.raid, Status:" + str(m_resp.status_code))
         print(m_resp.text)
@@ -122,13 +131,17 @@ if __name__ == "__main__":
         # print("user: " + tmp_name + ", with id: " + tmp_id)
         if registr_version == "EVENTSUB":
             # latest version
-            register_eventsub_webhook(tmp_id, tmp_name)
+            register_eventsub_webhook(tmp_id, tmp_name, eventsub_log)
         elif registr_version == "WEBHOOK":
             # old version
            register_stream_webhook(tmp_id, tmp_name)
         else:
             # Unknown type, do nothing
             pass
+
+    # if we have log, print it
+    if len(eventsub_log) > 0:
+        print(eventsub_log)
 
     # registered all users close file
     f.close()
