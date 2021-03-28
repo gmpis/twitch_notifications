@@ -4,6 +4,7 @@ import json
 # import pprint
 
 # read values from env vars
+g_app_token = os.getenv("APP_TOKEN", "abc")  # generated using client credentials flow
 g_client_id = os.getenv("OAUTH_CLIENT_ID", "000000")  # read client_id, defaults to 000000, invalid
 g_oauth_token = os.getenv("OAUTH_TOKEN", "abc")  # oauth_token for the signed in user,
 g_callback_url = os.getenv("CALLBACK_URL", "")  # read callback_url, webhook url of our server that accepts notifications, must end /
@@ -53,7 +54,7 @@ def register_eventsub_webhook(l_channel_id, l_channel_name):
 
     # request config
     base_url = "https://api.twitch.tv/helix/eventsub/sbscriptions"
-    tmp_auth_header = "Bearer " + g_oauth_token
+    tmp_auth_header = "Bearer " + g_app_token
     m_headers = {"Client-ID": g_client_id, "Authorization": tmp_auth_header}  # , "Content-Type": "text/plain"} , change to json
 
     # init once, same for all events
