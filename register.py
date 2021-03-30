@@ -70,7 +70,7 @@ def register_eventsub_webhook(l_channel_id, l_channel_name, l_eventsub_log):
     m_resp = requests.post(base_url, headers=m_headers, json=m_body)
     # if m_resp.status_code == requests.codes.ok:  # must be 202
     if m_resp.status_code == 202:  # must be 202, DONT use: requests.codes.ok
-        print("\t-Registered: " + l_channel_name + " stream.online  successfully !!!")
+        print("\t-Registered: " + l_channel_name + " stream.online successfully !!!")
         # read body, not empty
         registr_body = m_resp.json()
         # print(registr_body)
@@ -86,7 +86,7 @@ def register_eventsub_webhook(l_channel_id, l_channel_name, l_eventsub_log):
     m_resp = requests.post(base_url, headers=m_headers, json=m_body)
     # if m_resp.status_code == requests.codes.ok:  # must be 202
     if m_resp.status_code == 202:  # must be 202, DONT use: requests.codes.ok
-        print("\t-Registered: " + l_channel_name + " stream.offline  successfully !!!")
+        print("\t-Registered: " + l_channel_name + " stream.offline successfully !!!")
         # read body, not empty
         registr_body = m_resp.json()
         # print(registr_body)

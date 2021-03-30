@@ -54,7 +54,7 @@ def delete_eventsub_webhook(l_webhook_id, l_eventsub_log):
     m_resp = requests.delete(base_url, headers=m_headers, params=m_params_dict)  # json=m_body,
     # if m_resp.status_code == requests.codes.ok:  # must be 202
     if m_resp.status_code == 204:  # must be 202, DONT use: requests.codes.ok
-        print("Deleted: " + l_webhook_id + "webhook  successfully !!!")
+        print("Deleted: " + l_webhook_id + " webhook successfully !!!")
         # read body, not empty
         # registr_body = m_resp.json()
         # print(registr_body)
