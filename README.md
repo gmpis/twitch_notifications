@@ -22,7 +22,7 @@ Note: *If you haven't already installed pip/pip3, you can do so by running: `sud
 - set the env var: `export DISCORD_URL=123`  
 
 ## How to use: client side  
-Note: *The following steps must be performed AFTER the web server has been deployed AND configured!!! *   
+Note: *The following steps must be performed AFTER the web server has been deployed AND configured!!!*   
 - set the env vars:  
 `export OAUTH_CLIENT_ID=123`  
 `export OAUTH_TOKEN=123`  
@@ -32,7 +32,20 @@ Note: *The following steps must be performed AFTER the web server has been deplo
 - add the names of the channels you want to, on l_csv_users_str variable at search.py file  
 - run search script as: `python3 search.py | tee users.json`  
 - run register script as: `python3 register.py`  
-
+   
+Note: *To speed up development:*  
+- create a new bash script: `touch env_variables.sh`   
+- add the script to the .gitignore : `echo "env_variables.sh" >> .gitignore`   
+- write all export statements to the `env_variables.sh` script, with the following format:   
+    - `export OAUTH_CLIENT_ID="123"`   
+    - `export APP_TOKEN="123"`   
+    - `export OAUTH_TOKEN="123"`        
+    - `export HUB_SECRET="abc"`    
+    - `export CALLBACK_URL="http://localhost/"`   
+    - `...`   
+- run : `source env_variables.sh`   
+- on the SAME bash instance run any of the python scripts eg: `python3 search.py`
+     
 ## Debug eventsub webhooks   
 To debug eventsub webhooks you can use:   
 - the webhook_management script: `python3 webhook_management.py`   
