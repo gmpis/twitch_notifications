@@ -15,7 +15,8 @@
 `pip3 install -r requirements.txt`   
    
 Note: *If you haven't already installed pip/pip3, you can do so by running: `sudo apt install python3-pip`*   
-
+* To upgrade pip to the latest version run: `pip3 install -U pip`*   
+   
 ##  How to use: server side  
 - deploy webhook server `t_webhook.py`  
 - set the env var: `export DISCORD_URL=123`  
