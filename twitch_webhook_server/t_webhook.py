@@ -98,8 +98,9 @@ def accept_eventsub_webhook(user_name):
             m_notif_type = webhook_data["subscription"]["type"]
             if m_notif_type == "stream.online":
                 stream_title = ""
+                stream_url = "twitch://stream/" + user_name  # Deep Link format
                 event_data = webhook_data["event"]  # TODO debug, full event data
-                disc_msg = user_name + " Started stream : " + stream_title + " : " + str(event_data)
+                disc_msg = user_name + " is live!! : " + stream_title + " : " + str(event_data) + " :: " + stream_url
             elif m_notif_type == "stream.offline":
                 disc_msg = user_name + " went offline."
             elif m_notif_type == "channel.raid":
